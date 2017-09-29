@@ -54,9 +54,9 @@ app.get('/view', function (req, res) {
   var file;
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
+    data.fdata=file.data;
+    res.render('index',data);
   });
-  data.fdata=file.data;
-  res.render('index',data);
 });
 
 //start a server  and log its start to our console
