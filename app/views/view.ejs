@@ -10,6 +10,11 @@
   
 <body>
   Hello world!
+  
+   <% for (var i = 0; i < data.length; i++) { %>
+    <a href="/view?id=<%= i %>"><%= data[i] %></a><br>
+  <% } %>
+  
   <br>
   <%= foo %>
   <canvas id="myChart" width="90" height="50"></canvas>

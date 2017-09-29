@@ -5,6 +5,9 @@ app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
 
+var fs = require('fs');
+
+
 //setup config variables
 var config = require("./lib/config.json");
 var data = {};
@@ -24,22 +27,31 @@ if (isPi()) {
   //setup test variables for running on laptop
 }
 
-var fs = require('fs');
-var path = "sample";
-var file_titles=[];
-var file;
-fs.readdir(path, function(err, items) {
-    for (var i=0; i<items.length; i++) {
-        //console.log(items[i]);
-        file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
-        file_titles[i]=file.name;
-        //console.log(file_titles);
-    }
-});
-data.file_titles=file_titles;
-
 // reply to request
 app.get('/', function (req, res) {
+  var path = "sample";
+  var file_titles=[];
+  var file;
+  fs.readdir(path, function(err, items) {
+      for (var i=0; i<items.length; i++) {
+          //console.log(items[i]);
+          file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
+          file_titles[i]=file.name;
+          //console.log(file_titles);
+      }
+  });
+  data.file_titles=file_titles;
+  res.render('index',data);
+});
+
+app.get('/view', function (req, res) {
+  var fileid = req.query.id;
+  var file_titles=[];
+  var file;
+  fs.readdir(path, function(err, items) {
+    file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
+  });
+  data.fdata=file.data;
   res.render('index',data);
 });
 
