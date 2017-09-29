@@ -38,6 +38,7 @@ app.get('/', function (req, res) {
   fs.readdir(path, function(err, items) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
+          console.log(i + " " + file.name);
           file_titles[i]=file.name;
       }
   });
