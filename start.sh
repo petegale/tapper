@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Enable i2c - needed for the Display-O-Tron HAT
+#prolly not needed, but may leave for future GPIO
 modprobe i2c-dev
 
 # Run one process loop
-python src/process.py
+#python src/process.py
 
 # Start resin-wifi-connect
 export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
