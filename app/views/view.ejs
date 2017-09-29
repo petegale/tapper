@@ -12,8 +12,8 @@
   <h1><%= file.name %></h1>
   <p class=desc><%= file.desc %></p>
   <p class=date><%= file.date %></p>
-   <% for (var i = 0; i < file.data.length; i++) { %>
-    <a href="/view?id=<%= i %>"><%= file.data.[i] %></a><br>
+   <% for (var point in file.data) { %>
+    <a href="/view?id=<%= i %>"><%= point %></a><br>
   <% } %>
   
   <br>
