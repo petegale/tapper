@@ -6,7 +6,10 @@
 </head>
 
 
-<script src="/scripts/Chart.bundle.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
   
 <body>
   <h1>Clicker</h1>
@@ -15,8 +18,7 @@
   <% console.log("in ejs"+file_titles.length)%>
   <% for (var i = 0; i < file_titles.length; i++) { %>
    * <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
- <% } %>
-  
+ <% } %> 
 
 </body>
 </html>

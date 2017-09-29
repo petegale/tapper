@@ -1,4 +1,4 @@
-//setup express
+//setup express & socket.io
 console.log("Node server coming up...");
 
 var express = require('express');
@@ -6,9 +6,10 @@ var app = express();
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var fs = require('fs');
-
 
 //setup config variables
 var config = require("./lib/config.json");
@@ -28,6 +29,14 @@ if (isPi()) {
 } else {
   //setup test variables for running on laptop
 }
+
+//basic socket.io listener
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+     console.log('user disconnected');
+   });
+});
 
 // reply to request
 app.get('/', function (req, res) {
