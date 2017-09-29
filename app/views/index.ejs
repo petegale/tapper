@@ -2,14 +2,12 @@
 <html>
 <head>
   <title>Clicker</title>
-  <link rel="stylesheet" type="text/css" href="/styles/clicker.css">
-</head>
-
-
-<script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="/styles/tapper.css">
+   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
-</script>
+  </script>
+</head
   
 <body>
   <h1>Clicker</h1>
@@ -17,7 +15,7 @@
   <br>
   <% console.log("in ejs"+file_titles.length)%>
   <% for (var i = 0; i < file_titles.length; i++) { %>
-   * <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
+  <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
  <% } %> 
 
 </body>
