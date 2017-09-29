@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
       }
   });
   data.file_titles=file_titles;
-  console.log(datafile_titles.length);
+  console.log(data.file_titles.length);
   res.render('index',data);
 });
 
