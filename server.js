@@ -54,7 +54,7 @@ app.get('/view', function (req, res) {
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
     data.file=file.data;
-    res.render('index',data);
+    res.render('view',data);
   });
 });
 
