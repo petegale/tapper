@@ -38,22 +38,21 @@ app.get('/', function (req, res) {
   fs.readdir(path, function(err, items) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
-          console.log(i + "_" + file.name);
           file_titles[i]=file.name;
       }
       data.file_titles=file_titles;
-      console.log("in server.js " + file_titles.length);
       res.render('index',data);
   });
 });
 
 app.get('/view', function (req, res) {
   var fileid = req.query.id;
+  console.log("QS"+fileid);
   var path = "sample";
   var file;
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
-    data.file=file.data;
+    data.file=file;
     res.render('view',data);
   });
 });
