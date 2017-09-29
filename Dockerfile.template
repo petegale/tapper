@@ -66,8 +66,12 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install dot3k library
-RUN pip install dot3k
+# Copies the package.json first for better cache on later pushes
+COPY package.json package.json
+
+# This install npm dependencies on the resin.io build server,
+# making sure to clean up the artifacts it creates in order to reduce the image size.
+RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
 
 # -- End of Display-O-Tron HAT section -- #
 
