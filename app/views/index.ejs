@@ -12,10 +12,9 @@
   <h1>Clicker</h1>
   <h2>Saved files</h2>
   <br>
-  <% console.log(file_titles)%>
-  <% for (var i = 0; i < file_titles.length; i++) { 
-    console.log("*")%>
-   <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
+  <% console.log(file_titles.length)%>
+  <% for (var i = 0; i < file_titles.length; i++) { %>
+   * <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
  <% } %>
   
 
