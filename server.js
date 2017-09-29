@@ -34,10 +34,10 @@ app.get('/', function (req, res) {
   var file;
   fs.readdir(path, function(err, items) {
       for (var i=0; i<items.length; i++) {
-          //console.log(items[i]);
+          console.log(items[i]);
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
           file_titles[i]=file.name;
-          //console.log(file_titles);
+          console.log(file_titles);
       }
   });
   data.file_titles=file_titles;
@@ -46,6 +46,7 @@ app.get('/', function (req, res) {
 
 app.get('/view', function (req, res) {
   var fileid = req.query.id;
+  var path = "sample";
   var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
