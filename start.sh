@@ -15,4 +15,4 @@ node resin-wifi-connect/src/app.js --clear=false
 # internet - unless the configured WiFi connection is no longer available.
 
 # Start the main application
-python src/main.py
+node server.js
