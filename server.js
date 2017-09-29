@@ -1,4 +1,6 @@
 //setup express
+console.log("Node server coming up...");
+
 var express = require('express');
 var app = express();
 app.use(express.static(__dirname + '/app/public'));
@@ -29,6 +31,7 @@ if (isPi()) {
 
 // reply to request
 app.get('/', function (req, res) {
+  console.log("request for / .. reading data files");
   var path = "sample";
   var file_titles=[];
   var file;
