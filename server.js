@@ -37,7 +37,6 @@ app.get('/', function (req, res) {
   var file;
   fs.readdir(path, function(err, items) {
       for (var i=0; i<items.length; i++) {
-          console.log(items[i]);
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
           file_titles[i]=file.name;
           console.log(file_titles);
