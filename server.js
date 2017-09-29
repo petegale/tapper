@@ -1,15 +1,57 @@
+//setup express
 var express = require('express');
 var app = express();
+app.use(express.static(__dirname + '/app/public'));
+app.set('views', __dirname + '/app/views');
+app.set('view engine', 'ejs');
 
-// reply to request with "Hello World!"
+//setup config variables
+var config = require("./lib/config.json");
+var data = {};
+data = config;
+data.foo="bar";
+
+//test and configure for where it's running
+var www_port=config.dev_port;
+var isPi = require('detect-rpi');
+if (isPi()) {
+  //setup specific to rPi
+  www_port = config.prod_port;  
+  //provision the gpio pins 22 for the led output and 17 for the button input
+  var button = require("pi-pins").connect(17);
+  button.mode('in');
+} else {
+  //setup test variables for running on laptop
+}
+
+var fs = require('fs');
+var path = "sample";
+var file_titles=[];
+var file;
+fs.readdir(path, function(err, items) {
+    for (var i=0; i<items.length; i++) {
+        //console.log(items[i]);
+        file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
+        file_titles[i]=file.name;
+        //console.log(file_titles);
+    }
+});
+data.file_titles=file_titles;
+
+// reply to request
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.render('index',data);
 });
 
-//start a server on port 80 and log its start to our console
-var server = app.listen(80, function () {
+//start a server  and log its start to our console
+var server = app.listen(www_port, function () {
 
   var port = server.address().port;
   console.log('Example app listening on port ', port);
 
+});
+
+//button event handler
+button.on('rise', function () {
+  console.log("button pressed: "+ (++pressCount) +" time(s)");
 });

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple Expressjs Web server on resin.io",
   "main": "server.js",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -24,6 +25,10 @@
   },
   "homepage": "https://github.com/petegale/tapper",
   "dependencies": {
-    "express": "*"
+    "chart.js": "^2.7.0",
+    "detect-rpi": "^1.2.0",
+    "ejs": "^2.5.7",
+    "express": "*",
+    "pi-pins": "^1.0.2"
   }
 }

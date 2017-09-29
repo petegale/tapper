@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicker</title>
+  <link rel="stylesheet" type="text/css" href="/styles/clicker.css">
+</head>
+
+
+<script src="/scripts/Chart.bundle.js"></script>
+  
+<body>
+  <h1>Clicker</h1>
+  <h2>Saved files</h2>
+  <br>
+  <% for (var i = 0; i < file_titles.length; i++) { %>
+   <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
+ <% } %>
+  
+
+</body>
+</html>
