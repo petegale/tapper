@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "this one, really"
 # Enable i2c - needed for the Display-O-Tron HAT
 #prolly not needed, but may leave for future GPIO
 modprobe i2c-dev
@@ -16,4 +16,5 @@ node resin-wifi-connect/src/app.js --clear=false
 # internet - unless the configured WiFi connection is no longer available.
 
 # Start the main application
+echo "starting node"
 node server.js
