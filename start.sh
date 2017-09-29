@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "this one, really"
+echo "customised startup of wifi manager"
 # Enable i2c - needed for the Display-O-Tron HAT
 #prolly not needed, but may leave for future GPIO
 modprobe i2c-dev
