@@ -38,12 +38,12 @@ app.get('/', function (req, res) {
   fs.readdir(path, function(err, items) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
-          console.log(i + " " + file.name);
+          console.log(i + "_" + file.name);
           file_titles[i]=file.name;
       }
   });
   data.file_titles=file_titles;
-  console.log(file_titles.length);
+  console.log("in server.js " + file_titles.length);
   res.render('index',data);
 });
 
