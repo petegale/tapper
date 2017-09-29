@@ -50,11 +50,10 @@ app.get('/', function (req, res) {
 app.get('/view', function (req, res) {
   var fileid = req.query.id;
   var path = "sample";
-  var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
-    data.fdata=file.data;
+    data.file=file.data;
     res.render('index',data);
   });
 });
