@@ -41,10 +41,10 @@ app.get('/', function (req, res) {
           console.log(i + "_" + file.name);
           file_titles[i]=file.name;
       }
+      data.file_titles=file_titles;
+      console.log("in server.js " + file_titles.length);
+      res.render('index',data);
   });
-  data.file_titles=file_titles;
-  console.log("in server.js " + file_titles.length);
-  res.render('index',data);
 });
 
 app.get('/view', function (req, res) {
