@@ -72,14 +72,7 @@ io.on('connection', function(socket){
   });
   
   socket.on('test', function(data){
-    if (global.RecObj.RecStatus) {
-      var now = new Date().getTime();
-      var diff = now - global.RecObj.lastclick;
-      global.RecObj.lastclick = now;
-      global.RecObj.data.push(diff);
-    } else {
-      console.log("not recording"); 
-    }
+    tap();
   });  
   
 });
@@ -112,10 +105,23 @@ app.get('/view', function (req, res) {
 
 //GPIO button event handler
 button.on('rise', function () {
-  console.log("button pressed: "+ (++pressCount) +" time(s)");
+  tap();
 });
 
+
+
 //Some utility functions
+
+function tap() {
+  if (global.RecObj.RecStatus) {
+    var now = new Date().getTime();
+    var diff = now - global.RecObj.lastclick;
+    global.RecObj.lastclick = now;
+    global.RecObj.data.push(diff);
+  } else {
+    console.log("not recording"); 
+  }
+}
 
 function getDateTime(delim) {
     var date = new Date();
