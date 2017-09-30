@@ -21,6 +21,7 @@ window.addEventListener("load", function(){
     socket.emit("stop","stop");
     startButton.disabled = false;
     stopButton.disabled = true;
+    location.reload();
   });
   
   testButton.addEventListener('click', function() {
