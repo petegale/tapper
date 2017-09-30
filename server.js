@@ -60,7 +60,7 @@ io.on('connection', function(socket){
 // reply to request
 app.get('/', function (req, res) {
   console.log("request for / .. reading data files");
-  var path = "sample";
+  var path = "/data";
   var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
