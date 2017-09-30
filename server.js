@@ -1,7 +1,6 @@
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
@@ -27,6 +26,13 @@ if (isPi()) {
 } else {
   //setup test variables for running on laptop
 }
+
+//start a server  and log its start to our console
+server.listen(www_port, function () {
+  var port = server.address().port;
+  console.log('Example app listening on port ', port);
+
+});
 
 //basic socket.io listener
 io.on('connection', function(socket){
@@ -62,14 +68,6 @@ app.get('/view', function (req, res) {
     data.file=file;
     res.render('view',data);
   });
-});
-
-//start a server  and log its start to our console
-var server = app.listen(www_port, function () {
-
-  var port = server.address().port;
-  console.log('Example app listening on port ', port);
-
 });
 
 //button event handler
