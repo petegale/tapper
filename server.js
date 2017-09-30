@@ -38,9 +38,13 @@ http.listen(www_port, function () {
 
 //basic socket.io listener
 io.on('connection', function(socket){
-  console.log("connected");
+  console.log("socket.io connected");
   socket.on('disconnect', function(){
-    console.log(" disconnected")
+    console.log("socket.io disconnected")
+  });
+  socket.on('create', function(data){
+    data.date=getDateTime("-");
+    console.log(data);
   });
 });
 
@@ -72,14 +76,14 @@ app.get('/view', function (req, res) {
   });
 });
 
-//button event handler
+//GPIO button event handler
 button.on('rise', function () {
   console.log("button pressed: "+ (++pressCount) +" time(s)");
 });
 
 //Some utility functions
 
-function getDateTime() {
+function getDateTime(delim) {
     var date = new Date();
     var hour = date.getHours();
     hour = (hour < 10 ? "0" : "") + hour;
@@ -92,6 +96,6 @@ function getDateTime() {
     month = (month < 10 ? "0" : "") + month;
     var day  = date.getDate();
     day = (day < 10 ? "0" : "") + day;
-    return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+    return year + delim + month + delim + day + delim + hour + delim + min + delim + sec;
 
 }
