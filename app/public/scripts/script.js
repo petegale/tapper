@@ -2,7 +2,7 @@ var socket = io();
 
 window.addEventListener("load", function(){
   var createButton = document.getElementById('create');
-}
+});
 
 createButton.addEventListener('click', function() {
   alert("foo");
