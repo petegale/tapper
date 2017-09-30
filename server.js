@@ -46,7 +46,7 @@ io.on('connection', function(socket){
     data.date=getDateTime(":");
     console.log(data);
     //store the object persistently
-    var fpath="/data/"+getDateTime()+".json";
+    var fpath="/data/"+getDateTime("")+".json";
     fs.writeFile(fpath, JSON.stringify(data), (err) => {
         if (err) {
             console.error(err);
