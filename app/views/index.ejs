@@ -17,6 +17,14 @@
   <% for (var i = 0; i < file_titles.length; i++) { %>
   <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
  <% } %> 
+<div class=create>
+  <h2>New session</h2>
+<label for="name">Session name:</label>
+  <input type="text" name="name" id="name"><br>
+  <label for="desc">Session description:</label>
+    <input type="textarea" name="desc" id="desc"><br>
+    <button id=create>Create</create>
+</div>
 
 </body>
 </html>

@@ -1,13 +1,14 @@
 //setup express & socket.io
-console.log("Node server coming up...");
+console.log("Node server coming up..."+getDateTime());
 
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
-
-var io = require('socket.io')(http);
 
 var fs = require('fs');
 
@@ -32,10 +33,10 @@ if (isPi()) {
 
 //basic socket.io listener
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console_log("connected");
   socket.on('disconnect', function(){
-     console.log('user disconnected');
-   });
+    console_log(" disconnected")
+  });
 });
 
 // reply to request
@@ -78,3 +79,22 @@ var server = app.listen(www_port, function () {
 button.on('rise', function () {
   console.log("button pressed: "+ (++pressCount) +" time(s)");
 });
+
+//Some utility functions
+
+function getDateTime() {
+    var date = new Date();
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+    return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+
+}
