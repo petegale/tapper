@@ -31,7 +31,7 @@ if (isPi()) {
 
 //start a server  and log its start to our console
 http.listen(www_port, function () {
-  var port = server.address().port;
+  var port = http.address().port;
   console.log('Example app listening on port ', port);
 
 });
