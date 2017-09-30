@@ -3,8 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
-var global.RecObj = {};
-var global.RecObj.RecStatus = false;
+global.RecObj = {};
+global.RecObj.RecStatus = false;
 
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
