@@ -38,9 +38,9 @@ http.listen(www_port, function () {
 
 //basic socket.io listener
 io.on('connection', function(socket){
-  console_log("connected");
+  console.log("connected");
   socket.on('disconnect', function(){
-    console_log(" disconnected")
+    console.log(" disconnected")
   });
 });
 
