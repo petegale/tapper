@@ -1,6 +1,3 @@
-//setup express & socket.io
-console.log("Node server coming up..."+getDateTime());
-
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
