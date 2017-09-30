@@ -15,6 +15,7 @@ var config = require("./lib/config.json");
 var data = {};
 data = config;
 data.foo="bar";
+var path = "/data";
 
 //test and configure for where it's running
 var www_port=config.dev_port;
@@ -60,7 +61,6 @@ io.on('connection', function(socket){
 // reply to request
 app.get('/', function (req, res) {
   console.log("request for / .. reading data files");
-  var path = "/data";
   var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
@@ -76,7 +76,6 @@ app.get('/', function (req, res) {
 app.get('/view', function (req, res) {
   var fileid = req.query.id;
   console.log("QS"+fileid);
-  var path = "sample";
   var file;
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
