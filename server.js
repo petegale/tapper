@@ -1,12 +1,12 @@
 //setup express & socket.io
 console.log("Node server coming up...");
 
-var express = require('express');
-var app = express();
+var app = require('express')();
+var http = require('http').Server(app);
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
-var http = require('http').Server(app);
+
 var io = require('socket.io')(http);
 
 var fs = require('fs');
