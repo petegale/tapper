@@ -1,15 +1,30 @@
 var socket = io();
 
 window.addEventListener("load", function(){
-  var createButton = document.getElementById('create');
+  var startButton = document.getElementById('start');
+  var stopButton = document.getElementById('stop');
+  var testButton = document.getElementById('test');
+  stopButton.disabled = true;
   
-  createButton.addEventListener('click', function() {
+  startButton.addEventListener('click', function() {
     //data can be an object by doing this:
-    var FileObj = {};
-    FileObj.name = document.getElementById('name').value;
-    FileObj.desc = document.getElementById('desc').value;
+    var RecObj = {};
+    RecObj.name = document.getElementById('name').value;
+    RecObj.desc = document.getElementById('desc').value;
     //socket.emit("command",{variable,variable});
-    socket.emit("create",FileObj);
+    socket.emit("start",RecObj);
+    startButton.disabled = true;
+    stopButton.disabled = false;
+  });
+  
+  stopButton.addEventListener('click', function() {
+    socket.emit("stop","stop");
+    startButton.disabled = false;
+    stopButton.disabled = true;
+  });
+  
+  testButton.addEventListener('click', function() {
+    socket.emit("test","click");
   });
   
 });

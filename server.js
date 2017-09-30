@@ -3,6 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var global.RecObj = {};
+var global.RecObj.RecStatus = false;
 
 app.use(express.static(__dirname + '/app/public'));
 app.set('views', __dirname + '/app/views');
@@ -43,12 +45,24 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log("socket.io disconnected")
   });
-  socket.on('create', function(data){
-    data.date=getDateTime(":");
-    console.log(data);
+  
+  
+  socket.on('start', function(data){
+    global.RecObj=data;
+    global.RecObj.date=getDateTime(":");
+    global.RecObj.RecStatus = true;
+    global.RecObj.data = [];
+    global.RecObj.lastclick=new Date().getTime();
+    console.log("starting");
+    console.log(global.RecObj);
+    //store the object persistently
+  });
+  
+  socket.on('stop', function(data){
+    console.log("stopping recording");
     //store the object persistently
     var fpath="/data/"+getDateTime("")+".json";
-    fs.writeFile(fpath, JSON.stringify(data), (err) => {
+    fs.writeFile(fpath, JSON.stringify(global.RecObj), (err) => {
         if (err) {
             console.error(err);
             return;
@@ -56,6 +70,18 @@ io.on('connection', function(socket){
         console.log("File has been created");
     });
   });
+  
+  socket.on('test', function(data){
+    if (global.RecObj.RecStatus) {
+      var now = new Date().getTime();
+      var diff = now - global.RecObj.lastclick;
+      global.RecObj.lastclick = now;
+      global.RecObj.data.push(diff);
+    } else {
+      console.log("not recording"); 
+    }
+  });  
+  
 });
 
 // reply to request
