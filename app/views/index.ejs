@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Tapper</title>
-  <link rel="stylesheet" type="text/css" href="/styles/tapper.css">
-   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-   <script type="text/javascript" src="/scripts/script.js"></script>
-   <script type="text/javascript" src="/scripts/jquery-1.11.2.min.js"></script>
-</head
-  
-<body>
-  <div class=content>
+<% include partials/head %>
+
   <h1>Tapper</h1>
   <div class=files>
     <h2>Saved recordings</h2>
@@ -33,7 +23,5 @@
   <input type="text" name="desc" id="desc"><br>
     <button id=start>Start recording</create>
     <button id=stop>Stop recording</create>
-</div>
-<div>
-</body>
-</html>
+
+<% include partials/foot %>

@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Tapper session: <%= file.name %></title>
-  <link rel="stylesheet" type="text/css" href="/styles/tapper.css">
-</head>
+<% include partials/head %>
 
-
-  <script src="/scripts/Chart.bundle.js"></script>
-   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-   <script type="text/javascript" src="/scripts/script.js"></script>
-   <script type="text/javascript" src="/scripts/jquery-1.11.2.min.js"></script>
-  
-<body>
   <h1>Tapper session: <%= file.name %></h1>
   <a href=/?id=<%= fileid %>&action=delete>Delete this file</a>
   <p class=desc><%= file.desc %></p>
@@ -62,5 +50,5 @@
       }
   });
   </script>
-</body>
-</html>
+
+<% include partials/foot %>
