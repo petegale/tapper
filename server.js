@@ -89,9 +89,10 @@ app.get('/', function (req, res) {
   var action = req.query.action;
   var fileid = req.query.id;
   if (action=="delete") {
-    fs.readdir(path, function(err, items) {
-      fs.unlinkSync(path+"/"+items[data.fileid]);
+    fs.readdir(path, function(err, delitems) {
+      fs.unlinkSync(path+"/"+delitems[data.fileid]);
     });
+    console.log("item deleted");
   }
   var file_titles=[];
   var file;
@@ -100,6 +101,7 @@ app.get('/', function (req, res) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
           file_titles[i]=file.name;
+          console.log(file.name)
       }
       data.hasfiles=true;
     } else {
