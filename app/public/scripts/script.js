@@ -21,7 +21,9 @@ window.addEventListener("load", function(){
   var startButton = document.getElementById('start');
   var stopButton = document.getElementById('stop');
   var createLink = document.getElementById('toggle');
-  stopButton.disabled = true;
+  if (stopButton) {
+    stopButton.disabled = true;
+  }
   
   startButton.addEventListener('click', function() {
     //data can be an object by doing this:
