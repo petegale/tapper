@@ -59,6 +59,7 @@ io.on('connection', function(socket){
     global.RecObj.date=getDateTime(":");
     global.RecObj.RecStatus = true;
     global.RecObj.data = [];
+    global.RecObj.time = [];
     global.RecObj.lastclick=new Date().getTime();
     console.log("starting");
     console.log(global.RecObj);
@@ -132,12 +133,22 @@ function tap() {
     var diff = now - global.RecObj.lastclick;
     global.RecObj.lastclick = now;
     global.RecObj.data.push(diff);
+    global.RecObj.time.push(getTime(":"));
     io.sockets.emit("tap","active");
   } else {
     console.log("not recording"); 
   }
 }
-
+function getTime(delim) {
+  var date = new Date();
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+  return hour + delim + min + delim + sec;
+}
 function getDateTime(delim) {
     var date = new Date();
     var hour = date.getHours();

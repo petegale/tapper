@@ -87,6 +87,7 @@
   window.myLine = new Chart(ctx, config);
   </script>
   JSON **<%= JSON.stringify(file.data) %>**
+  JSON **<%= JSON.stringify(file.time) %>**
   <% for (var point in file.data) { %><%- file.data[point] %>,<% } %>
   
 <% include partials/foot %>
