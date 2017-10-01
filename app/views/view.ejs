@@ -1,12 +1,13 @@
 <% include partials/head %>
 
+  <div class=delete><a href=/?id=<%= fileid %>&action=delete>Delete this file</a></div>
+  
   <h1><a href="/">Tapper:</a> <%= file.name %></h1>
   
   <div id=chart><canvas id="Chart"></canvas></div>
   
-  
-  <a href=/?id=<%= fileid %>&action=delete>Delete this file</a>
   <p class=desc><%= file.desc %></p>
+  
   <p class=date><%= file.date %></p>
   
   
