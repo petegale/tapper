@@ -26,6 +26,7 @@ h2 {
 }
 
 .file {
+  color:#333333;
   margin: 0px 0px 5px 0px;
   background-color:#f0f0f0;
   padding:3px;
@@ -40,6 +41,7 @@ h2 {
 }
 
 input[type="text"] {
+  font-size:1em;
   width:300px;
   margin: 0px 0px 20px 0px;
   padding: 10px;
@@ -52,10 +54,11 @@ input[type="text"]:focus, input[type="text"].focus {
 }
 
 label {
-  color:#6F6F6F;
+  color:#333333;
+  margin: 10px 0px 0px 30px;
   font-weight:200;
   display: block;
-  width: 150px;
+  width: 100px;
   float: left;
 }
 
