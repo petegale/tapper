@@ -1,5 +1,6 @@
 {
   "prod_port":"80",
   "dev_port":"3000",
-  "foo":"bar"
+  "foo":"bar",
+  "minGap":250
 }
