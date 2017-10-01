@@ -105,6 +105,7 @@ app.get('/view', function (req, res) {
 
 //GPIO button event handler
 button.on('rise', function () {
+  console.log("button handler"); 
   tap();
 });
 
@@ -113,6 +114,7 @@ button.on('rise', function () {
 //Some utility functions
 
 function tap() {
+  console.log("tap function"); 
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
