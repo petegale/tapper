@@ -89,7 +89,7 @@ app.get('/', function (req, res) {
   var action = req.query.action;
   var fileid = req.query.id;
   if (action=="delete") {
-    var delitems = fs.readdirSync(dirpath)
+    var delitems = fs.readdirSync(path)
     fs.unlinkSync(path+"/"+delitems[data.fileid]);
     console.log("item deleted");
   }
