@@ -20,10 +20,15 @@ socket.on('tap', function(data) {
 window.addEventListener("load", function(){
   var startButton = document.getElementById('start');
   var stopButton = document.getElementById('stop');
+  if (stopButton) { stopButton.disabled = true; }
   var createLink = document.getElementById('toggle');
-  if (stopButton) {
-    stopButton.disabled = true;
-  }
+  
+  var recording = document.getElementById('recording')
+  if (recording) {recording.style.display = 'none';}
+  
+  var createpanel = document.getElementById('createpanel');
+  if (createpanel) {createpanel.style.display = 'none';}
+
   if (startButton) {
     startButton.addEventListener('click', function() {
       //data can be an object by doing this:
@@ -46,11 +51,6 @@ window.addEventListener("load", function(){
       location.reload();
     });
   }
-
-  
-  document.getElementById('recording').style.display = 'none';
-  
-  document.getElementById('createpanel').style.display = 'none';
   
   if (createLink) {
     createLink.addEventListener('click', function() {
