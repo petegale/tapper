@@ -24,10 +24,9 @@
         data: {
             labels: <%- JSON.stringify(file.time) %>,
             datasets: [{
-                label: "My First dataset",
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                label: "Tap delays",
                 data: <%- JSON.stringify(file.data) %>,
+                borderColor: blue,
                 fill: false,
             }]
         },

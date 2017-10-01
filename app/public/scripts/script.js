@@ -24,39 +24,44 @@ window.addEventListener("load", function(){
   if (stopButton) {
     stopButton.disabled = true;
   }
+  if (startbutton) {
+    startButton.addEventListener('click', function() {
+      //data can be an object by doing this:
+      var RecObj = {};
+      RecObj.name = document.getElementById('name').value;
+      RecObj.desc = document.getElementById('desc').value;
+      //socket.emit("command",{variable,variable});
+      socket.emit("start",RecObj);
+      startButton.disabled = true;
+      stopButton.disabled = false;
+      document.getElementById('recording').style.display = 'block';
+    });
+  }
   
-  startButton.addEventListener('click', function() {
-    //data can be an object by doing this:
-    var RecObj = {};
-    RecObj.name = document.getElementById('name').value;
-    RecObj.desc = document.getElementById('desc').value;
-    //socket.emit("command",{variable,variable});
-    socket.emit("start",RecObj);
-    startButton.disabled = true;
-    stopButton.disabled = false;
-    document.getElementById('recording').style.display = 'block';
-  });
-  
-  stopButton.addEventListener('click', function() {
-    socket.emit("stop","stop");
-    startButton.disabled = false;
-    stopButton.disabled = true;
-    location.reload();
-  });
+  if (stopButton) {
+    stopButton.addEventListener('click', function() {
+      socket.emit("stop","stop");
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      location.reload();
+    });
+  }
+
   
   document.getElementById('recording').style.display = 'none';
   
   document.getElementById('createpanel').style.display = 'none';
   
-  createLink.addEventListener('click', function() {
-    var x = document.getElementById('createpanel');
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-    } else {
-        x.style.display = 'none';
-    }
-    
-  });
+  if (createLink) {
+    createLink.addEventListener('click', function() {
+      var x = document.getElementById('createpanel');
+      if (x.style.display === 'none') {
+          x.style.display = 'block';
+      } else {
+          x.style.display = 'none';
+      }
+    });
+  }
   
 });
 
