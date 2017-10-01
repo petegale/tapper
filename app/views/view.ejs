@@ -1,18 +1,22 @@
 <% include partials/head %>
 
-  <h1>Tapper session: <%= file.name %></h1>
+  <h1><a href="/">Tapper:</a> <%= file.name %></h1>
+  
   <a href=/?id=<%= fileid %>&action=delete>Delete this file</a>
   <p class=desc><%= file.desc %></p>
   <p class=date><%= file.date %></p>
+  
+  <canvas id="myCanvas" width="100%" height="400"
+  style="border:1px solid #000000;">
+  </canvas>
+  
    <% for (var point in file.data) { %>
     <%- point %> : <%- file.data[point] %> <br>
   <% } %>
   
   <br>
   <%= foo %>
-<canvas id="myCanvas" width="200" height="100"
-style="border:1px solid #000000;">
-</canvas>
+
   <script>
     
   var ctx = document.getElementById("myChart");
