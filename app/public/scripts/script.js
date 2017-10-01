@@ -24,7 +24,7 @@ window.addEventListener("load", function(){
   if (stopButton) {
     stopButton.disabled = true;
   }
-  if (startbutton) {
+  if (startButton) {
     startButton.addEventListener('click', function() {
       //data can be an object by doing this:
       var RecObj = {};
