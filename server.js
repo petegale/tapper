@@ -42,7 +42,7 @@ if (isPi()) {
 //start a server  and log its start to our console
 http.listen(www_port, function () {
   var port = http.address().port;
-  console.log('Example app listening on port ', port);
+  console.log('Tapper is listening on port ', port);
 
 });
 
@@ -112,7 +112,6 @@ app.get('/', function (req, res) {
 
 app.get('/view', function (req, res) {
   data.fileid = req.query.id;
-  console.log("QS"+fileid);
   var file;
   fs.readdir(path, function(err, items) {
     file=JSON.parse(fs.readFileSync(path+"/"+items[data.fileid], 'utf8'));
