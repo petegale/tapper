@@ -13,6 +13,7 @@
   
 <body>
   <h1>Tapper session: <%= file.name %></h1>
+  <a href=/index?id=<%= fileid %>&action=delete>Delete this file</a>
   <p class=desc><%= file.desc %></p>
   <p class=date><%= file.date %></p>
    <% for (var point in file.data) { %>

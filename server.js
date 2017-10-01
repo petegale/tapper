@@ -86,7 +86,13 @@ io.on('connection', function(socket){
 
 // reply to request
 app.get('/', function (req, res) {
-  console.log("request for / .. reading data files");
+  var action = req.query.action;
+  var fileid = req.query.id;
+  if (action=="delete") {
+    fs.readdir(path, function(err, items) {
+      fs.unlinkSync(path+"/"+items[data.fileid]);
+    }
+  }
   var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
@@ -105,11 +111,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/view', function (req, res) {
-  var fileid = req.query.id;
+  data.fileid = req.query.id;
   console.log("QS"+fileid);
   var file;
   fs.readdir(path, function(err, items) {
-    file=JSON.parse(fs.readFileSync(path+"/"+items[fileid], 'utf8'));
+    file=JSON.parse(fs.readFileSync(path+"/"+items[data.fileid], 'utf8'));
     data.file=file;
     res.render('view',data);
   });
