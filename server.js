@@ -91,7 +91,7 @@ app.get('/', function (req, res) {
   if (action=="delete") {
     fs.readdir(path, function(err, items) {
       fs.unlinkSync(path+"/"+items[data.fileid]);
-    }
+    });
   }
   var file_titles=[];
   var file;
