@@ -9,21 +9,31 @@
 </head
   
 <body>
+  <div class=content>
   <h1>Tapper</h1>
-  <h2>Saved files</h2>
+  <div class=files>
+    <h2>Saved recordings</h2>
+     <% if (hasfiles) {%>
   <% for (var i = 0; i < file_titles.length; i++) { %>
-  <a href="/view?id=<%= i %>"><%= file_titles[i] %></a><br>
+  <div class=file><a href="/view?id=<%= i %>"><%= file_titles[i] %></a></div>
  <% } %> 
-<div class=create>
+ <% } else {%> 
+   
+   <div class=file><a href="">No recorded files</a></div>
+   
+   <% } %> 
+</div>
+<a href="#" id=toggle>Create new recording</a>
+<div class=create id=createpanel>
+  <div class=recording id=recording>Recording</div>
   <h2>New session</h2>
-<label for="name">Session name:</label>
+<label for="name">Name</label>
   <input type="text" name="name" id="name"><br>
-  <label for="desc">Session description:</label>
-    <textarea name="desc" id="desc"></textarea><br>
+  <label for="desc">Description</label>
+  <input type="text" name="desc" id="desc"><br>
     <button id=start>Start recording</create>
     <button id=stop>Stop recording</create>
-    <button id=test>test</create>
 </div>
-
+<div>
 </body>
 </html>

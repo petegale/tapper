@@ -1,9 +1,26 @@
 var socket = io();
 
+  var flip=true;
+
+function tap() {
+  var x = document.getElementById('recording');
+  if (flip==true) {
+      x.style.backgroundColor = '#f9f9f9';
+      flip=false;
+  } else {
+      x.style.backgroundColor = '#ffffff';
+      flip=true;
+  }
+}
+
+socket.on('tap', function(data) {
+  tap();
+});
+
 window.addEventListener("load", function(){
   var startButton = document.getElementById('start');
   var stopButton = document.getElementById('stop');
-  var testButton = document.getElementById('test');
+  var createLink = document.getElementById('toggle');
   stopButton.disabled = true;
   
   startButton.addEventListener('click', function() {
@@ -15,6 +32,7 @@ window.addEventListener("load", function(){
     socket.emit("start",RecObj);
     startButton.disabled = true;
     stopButton.disabled = false;
+    document.getElementById('recording').style.display = 'block';
   });
   
   stopButton.addEventListener('click', function() {
@@ -24,8 +42,18 @@ window.addEventListener("load", function(){
     location.reload();
   });
   
-  testButton.addEventListener('click', function() {
-    socket.emit("test","click");
+  document.getElementById('recording').style.display = 'none';
+  
+  document.getElementById('createpanel').style.display = 'none';
+  
+  createLink.addEventListener('click', function() {
+    var x = document.getElementById('createpanel');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+    
   });
   
 });

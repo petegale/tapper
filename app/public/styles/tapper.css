@@ -1,10 +1,98 @@
 body {
     font-family: Sans-Serif;
-    background-color: powderblue;
+    background-color:#F2F2F2;
 }
 h1 {
-    color: black;
+    color:#6F6F6F;
+    margin-top: 0;
 }
-p {
+h2 {
+    color:#6F6F6F;
+    margin-top: 0;
+    font-weight:200;
+}
+.content {
+  margin: 40px 40px 40px 40px;
+  background-color:#FFFFFF;
+  box-shadow: 1px 1px 3px #888888;
+  padding: 20px 20px 10px 20px;
+  
+}
+.files {
+  margin: 0px 0px 10px 0px;
+  background-color:#f9f9f9;
+  padding: 20px 20px 20px 20px;
+  
+}
 
+.file {
+  margin: 0px 0px 5px 0px;
+  background-color:#f0f0f0;
+  padding:3px;
+  
+}
+
+.create {
+  margin: 10px 0px 10px 0px;
+  background-color:#f9f9f9;
+  padding: 20px 20px 20px 20px;
+  
+}
+
+input[type="text"] {
+  width:300px;
+  margin: 0px 0px 20px 0px;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+input[type="text"]:focus, input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+label {
+  color:#6F6F6F;
+  font-weight:200;
+  display: block;
+  width: 150px;
+  float: left;
+}
+
+label:after { 
+  content: ": " 
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: #B8FFB4;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: default;
+}
+.recording{
+  float: right;
+  padding:10px;
+  font-weight:800;
+  color:#800000;
+  background-color: #ffffff;
 }

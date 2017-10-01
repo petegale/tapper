@@ -28,6 +28,13 @@ if (isPi()) {
   //provision the gpio pins 22 for the led output and 17 for the button input
   var button = require("pi-pins").connect(17);
   button.mode('in');
+  
+  //GPIO button event handler
+  button.on('rise', function () {
+    console.log("button handler"); 
+    tap();
+  });
+  
 } else {
   //setup test variables for running on laptop
 }
@@ -83,10 +90,15 @@ app.get('/', function (req, res) {
   var file_titles=[];
   var file;
   fs.readdir(path, function(err, items) {
+    if (items) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
           file_titles[i]=file.name;
       }
+      data.hasfiles=true;
+    } else {
+      data.hasfiles=false;
+    }
       data.file_titles=file_titles;
       res.render('index',data);
   });
@@ -103,23 +115,18 @@ app.get('/view', function (req, res) {
   });
 });
 
-//GPIO button event handler
-button.on('rise', function () {
-  console.log("button handler"); 
-  tap();
-});
 
 
 
 //Some utility functions
 
 function tap() {
-  console.log("tap function"); 
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
     global.RecObj.lastclick = now;
     global.RecObj.data.push(diff);
+    io.sockets.emit("tap","active");
   } else {
     console.log("not recording"); 
   }
