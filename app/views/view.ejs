@@ -22,12 +22,12 @@
     var config = {
         type: 'line',
         data: {
-            labels: <%= JSON.stringify(file.time) %>,
+            labels: <%- JSON.stringify(file.time) %>,
             datasets: [{
                 label: "My First dataset",
                 backgroundColor: window.chartColors.red,
                 borderColor: window.chartColors.red,
-                data: <%= JSON.stringify(file.data) %>,
+                data: <%- JSON.stringify(file.data) %>,
                 fill: false,
             }]
         },
