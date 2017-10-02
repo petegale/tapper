@@ -28,7 +28,12 @@ window.addEventListener("load", function(){
   
   var createpanel = document.getElementById('createpanel');
   if (createpanel) {createpanel.style.display = 'none';}
-
+  var testButton = document.getElementById('test');
+  if (testButton) {
+    testButton.addEventListener('click', function() {
+      socket.emit("tap","tap");
+    });
+  }
   if (startButton) {
     startButton.addEventListener('click', function() {
       //data can be an object by doing this:
