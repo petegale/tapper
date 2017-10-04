@@ -3,5 +3,6 @@
   "dev_port":"3000",
   "foo":"bar",
   "minGap":250,
-  "test":false
+  "test":false,
+  "tap_source":"MPU"
 }
