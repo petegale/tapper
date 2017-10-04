@@ -30,5 +30,8 @@
     "express": "*",
     "pi-pins": "^1.0.2",
     "socket.io": "^1.7.3"
+  },
+  "optionalDependencies": {
+    "mpu-9250":"*"
   }
 }

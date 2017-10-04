@@ -12,6 +12,16 @@ app.set('view engine', 'ejs');
 
 var fs = require('fs');
 
+//new objects and events to handle tapping
+const TapWatcher = require('./lib/TapWatcher.js');
+// create a new instance of our PubSub class
+const watcher = new TapWatcher("GPIO");
+// listen for any events
+watcher.on('tap', function () {
+  console.log('tap!')
+  tap()
+})
+
 //setup config variables
 var config = require("./lib/config.json");
 var data = {};
@@ -25,16 +35,6 @@ var isPi = require('detect-rpi');
 if (isPi()) {
   //setup specific to rPi
   www_port = config.prod_port;  
-  //provision the gpio pins 22 for the led output and 17 for the button input
-  var button = require("pi-pins").connect(17);
-  button.mode('in');
-  
-  //GPIO button event handler
-  button.on('rise', function () {
-    console.log("button handler"); 
-    tap();
-  });
-  
 } else {
   //setup test variables for running on laptop
 }
