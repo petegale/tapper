@@ -32,6 +32,6 @@
     "socket.io": "^1.7.3"
   },
   "optionalDependencies": {
-    "mpu-9250":"*"
+    "mpu9250":"*"
   }
 }
