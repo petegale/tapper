@@ -12,6 +12,13 @@ app.set('view engine', 'ejs');
 
 var fs = require('fs');
 
+//setup config variables
+var config = require("./lib/config.json");
+var data = {};
+data = config;
+data.foo="bar";
+var path = "/data";
+
 //new objects and events to handle tapping
 const TapWatcher = require('./lib/TapWatcher.js');
 // create a new instance of our PubSub class
@@ -21,13 +28,6 @@ watcher.on('tap', function () {
   console.log('tap!')
   tap()
 })
-
-//setup config variables
-var config = require("./lib/config.json");
-var data = {};
-data = config;
-data.foo="bar";
-var path = "/data";
 
 //test and configure for where it's running
 var www_port=config.dev_port;
