@@ -101,7 +101,6 @@ app.get('/', function (req, res) {
       for (var i=0; i<items.length; i++) {
           file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
           file_titles[i]=file.name;
-          console.log(file.name)
       }
       data.hasfiles=true;
     } else {
