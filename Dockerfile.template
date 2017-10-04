@@ -2,17 +2,13 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-python:2.7
 
 # Set the maintainer
-MAINTAINER Joe Roberts <joe@resin.io>
+MAINTAINER Pete Gale <petegale@gmail.com>
 
 # Enable systemd init system
 ENV INITSYSTEM on
 
 # Set the working directory
 WORKDIR /usr/src/app
-
-# We have split up the resin-wifi-connect and Display-O-Tron HAT configuration to make clear
-# the different parts needed. In your dockerfile you should combine these steps to reduce
-# the number of layers.
 
 # -- Start of resin-wifi-connect section -- #
 
