@@ -22,7 +22,7 @@ var path = "/data";
 //new objects and events to handle tapping
 const TapWatcher = require('./lib/TapWatcher.js');
 // create a new instance of our PubSub class
-const watcher = new TapWatcher(config.tap_source);
+const watcher = new TapWatcher(config.tap_source,config.accel_threshold);
 // listen for any events
 watcher.on('tap', function (data) {
   //console.log('1_tap!'+data)
