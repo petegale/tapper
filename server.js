@@ -24,9 +24,9 @@ const TapWatcher = require('./lib/TapWatcher.js');
 // create a new instance of our PubSub class
 const watcher = new TapWatcher(config.tap_source);
 // listen for any events
-watcher.on('tap', function () {
-  console.log('tap!')
-  tap()
+watcher.on('tap', function (data) {
+  //console.log('tap!')
+  tap(data)
 })
 
 //test and configure for where it's running
@@ -126,15 +126,16 @@ app.get('/view', function (req, res) {
 
 //Some utility functions
 
-function tap() {
+function tap(data) {
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
     if (diff>config.minGap) {
       global.RecObj.lastclick = now;
-      global.RecObj.data.push(diff);
+      //global.RecObj.data.push(diff);
+      global.RecObj.data.push(data);
       global.RecObj.time.push(getTime(":"));
-      io.sockets.emit("tap","active");
+      //io.sockets.emit("tap","active");
     }
   } else {
     console.log("not recording"); 
