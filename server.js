@@ -25,7 +25,7 @@ const TapWatcher = require('./lib/TapWatcher.js');
 const watcher = new TapWatcher(config.tap_source);
 // listen for any events
 watcher.on('tap', function (data) {
-  console.log('1_tap!'+data)
+  //console.log('1_tap!'+data)
   tap(data)
 })
 
@@ -79,7 +79,7 @@ io.on('connection', function(socket){
     });
   });
   
-  socket.on('tap', function(data){
+  socket.on('test', function(data){
     tap();
   });  
   
