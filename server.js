@@ -25,7 +25,7 @@ const TapWatcher = require('./lib/TapWatcher.js');
 const watcher = new TapWatcher(config.tap_source);
 // listen for any events
 watcher.on('tap', function (data) {
-  //console.log('tap!')
+  console.log('1_tap!'+data)
   tap(data)
 })
 
@@ -79,7 +79,7 @@ io.on('connection', function(socket){
     });
   });
   
-  socket.on('test', function(data){
+  socket.on('tap', function(data){
     tap();
   });  
   
@@ -127,11 +127,12 @@ app.get('/view', function (req, res) {
 //Some utility functions
 
 function tap(data) {
+  console.log(data);
   if (global.RecObj.RecStatus) {
-    var now = new Date().getTime();
-    var diff = now - global.RecObj.lastclick;
+    //var now = new Date().getTime();
+    //var diff = now - global.RecObj.lastclick;
     //if (diff>config.minGap) {
-      global.RecObj.lastclick = now;
+      //global.RecObj.lastclick = now;
       //global.RecObj.data.push(diff);
       global.RecObj.data.push(data);
       global.RecObj.time.push(getTime(":"));
