@@ -130,13 +130,13 @@ function tap(data) {
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
-    if (diff>config.minGap) {
+    //if (diff>config.minGap) {
       global.RecObj.lastclick = now;
       //global.RecObj.data.push(diff);
       global.RecObj.data.push(data);
       global.RecObj.time.push(getTime(":"));
       //io.sockets.emit("tap","active");
-    }
+      //}
   } else {
     console.log("not recording"); 
   }
