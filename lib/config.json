@@ -4,5 +4,6 @@
   "foo":"bar",
   "minGap":250,
   "test":false,
-  "tap_source":"MPU"
+  "tap_source":"MPU",
+  "accel_threshold":4500
 }
