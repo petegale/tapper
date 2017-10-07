@@ -5,5 +5,5 @@
   "minGap":250,
   "test":false,
   "tap_source":"MPU",
-  "accel_threshold":4000
+  "accel_threshold":2000
 }
