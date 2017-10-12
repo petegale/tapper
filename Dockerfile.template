@@ -36,11 +36,16 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     rm -rf /tmp/*
 
 # Install resin-wifi-connect
-ENV RESIN_WIFI_CONNECT_VERSION 2.0.7
-RUN curl -SL "https://github.com/resin-io/resin-wifi-connect/archive/v$RESIN_WIFI_CONNECT_VERSION.tar.gz" \
-    | tar xzC /usr/src/app/ && \
-    mv resin-wifi-connect-$RESIN_WIFI_CONNECT_VERSION resin-wifi-connect && \
+#ENV RESIN_WIFI_CONNECT_VERSION 2.0.7
+#RUN curl -SL "https://github.com/resin-io/resin-wifi-connect/archive/v$RESIN_WIFI_CONNECT_VERSION.tar.gz" \
+#    | tar xzC /usr/src/app/ && \
+#    mv resin-wifi-connect-$RESIN_WIFI_CONNECT_VERSION resin-wifi-connect && \
+#    cd resin-wifi-connect && \
+
+#   This bit copies files over, rather than downloading them
+    mv RWC resin-wifi-connect && \
     cd resin-wifi-connect && \
+
     JOBS=MAX npm install --unsafe-perm --production && \
     npm cache clean && \
     ./node_modules/.bin/bower --allow-root install && \
