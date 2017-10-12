@@ -11,15 +11,7 @@ config = require './config'
 app = express()
 
 led = require('pi-pins').connect(18);
-ledmode='high';
-setInterval(function() {
-  led.mode(ledmode)
-  if ledmode=='high'
-    ledmode='low'
-  else
-    ledmode='high'
-}, 200);
-
+led.mode('high')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded(extended: true))
