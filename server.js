@@ -93,8 +93,12 @@ app.get('/', function (req, res) {
   var fileid = req.query.id;
   if (action=="delete") {
     var delitems = fs.readdirSync(path)
-    fs.unlinkSync(path+"/"+delitems[data.fileid]);
-    console.log("item deleted");
+    try {
+      fs.unlinkSync(path+"/"+delitems[data.fileid]);
+      console.log("item deleted");
+    } catch (er) {
+      console.log(er);
+    }
   }
   var file_titles=[];
   var file;
