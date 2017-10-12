@@ -43,9 +43,9 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 #    cd resin-wifi-connect && \
 
 #   This bit copies files over, rather than downloading them
-ADD RWC resin-wifi-connect
-RUN cd resin-wifi-connect
-RUN JOBS=MAX npm install --unsafe-perm --production && \
+ADD RWC /usr/src/app/resin-wifi-connect && \
+      /usr/src/app/resin-wifi-connect && \
+      JOBS=MAX npm install --unsafe-perm --production && \
     npm cache clean && \
     ./node_modules/.bin/bower --allow-root install && \
     ./node_modules/.bin/bower --allow-root cache clean && \
