@@ -69,6 +69,7 @@ io.on('connection', function(socket){
   
   socket.on('stop', function(data){
     console.log("stopping recording");
+    global.RecObj.RecStatus = false;
     //store the object persistently
     var fpath="/data/"+getDateTime("")+".json";
     fs.writeFile(fpath, JSON.stringify(global.RecObj), (err) => {
