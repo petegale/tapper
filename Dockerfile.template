@@ -43,7 +43,7 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
 #    cd resin-wifi-connect && \
 
 #   This bit copies files over, rather than downloading them
-RUN mv RWC resin-wifi-connect && \
+RUN COPY RWC resin-wifi-connect && \
     cd resin-wifi-connect && \
 
     JOBS=MAX npm install --unsafe-perm --production && \
