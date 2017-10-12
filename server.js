@@ -14,6 +14,7 @@ var fs = require('fs');
 
 //setup config variables
 var config = require("./lib/config.json");
+global.config=config;
 var data = {};
 data = config;
 data.foo="bar";
