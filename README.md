@@ -13,19 +13,17 @@ Once connected - open a browser on the IP address of Tapper to manage file recor
 Putting the hardware together
 -----------------------------
 
+No docs yet :(
+
 Installing the software
 -----------------------
 
-First of all let's enable ssh
+First of all let's enable ssh, i2C and SPI
 
-```
-touch /ssh
-```
-Now let's enable i2C
 ```
 sudo raspi-config
 ```
-Got to the interfaces option, then enable i2c and SPI
+Got to the interfaces option, then enable i2c, SSH and SPI
 Now let's provide details of the wireless network we're using during setup:
 ```
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
@@ -38,7 +36,7 @@ network={
     psk="testingPassword"
 }
 ```
-Save ond exit (Ctrl-X then Y then Enter)
+Save and exit (Ctrl-X then Y then Enter)
 
 Strongly recomend that you change the default password at this point, by typing passwd
 
@@ -51,6 +49,8 @@ Now check you're online with:
 ping www.google.com
 ```
 If that's working (not timing out), you can Ctrl-C to stop the ping.
+
+At this point it might be easier to log in via ssh (use ifconfig to find your ip, then ssh pi@[YOUR IP ADDRESS])
 
 Now we're going to update the raspbian install we've just done (this takes some time...)
 
