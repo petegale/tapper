@@ -81,9 +81,9 @@ wget -O tapper https://github.com/petegale/tapper/zipball/master
 unzip tapper
 rm tapper
 ```
-It's makes things simpler to rename the directory that this has created. If you type ls and hit enter, you will see a name like petegale-tapper-90680a6, let's just rename this to 'tapper', so modify the code below to match the name of the directory you've created:
+It's makes things simpler to rename the directory that this has created. If you type ls and hit enter, you will see a name like petegale-tapper-90680a6, let's just rename this to 'tapper':
 ```
-mv petegale-tapper-90680a6 tapper
+mv petegale-tapper-* tapper
 ```
 Use ls again to check this worked.
 
