@@ -18,6 +18,8 @@ No docs yet :(
 Installing the software
 -----------------------
 
+This is installing from a base of Raspbian Jessie.
+
 First of all let's enable ssh, i2C and SPI
 
 ```
