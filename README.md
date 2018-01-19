@@ -112,94 +112,125 @@ su pi -c 'sudo node /home/pi/tapper/server.js < /dev/null &'
 Ctrl-X then Y then Enter to save and exit
 
 
-Install all the required software in one go with this command:
+PACKAGES
+The first step is to install the required packages: sudo apt-get install dnsmasq hostapd
 
-```
-sudo apt-get install dnsmasq hostapd
-```
-Since the configuration files are not ready yet, turn the new software off as follows:
-```
-sudo systemctl stop dnsmasq
-sudo systemctl stop hostapd
-```
-Configuring a static IP
+I'll go into a little detail about the two:
 
-We are configuring a standalone network to act as a server, so the Raspberry Pi needs to have a static IP address assigned to the wireless port. This documentation assumes that we are using the standard 192.168.x.x IP addresses for our wireless network, so we will assign the server the IP address 192.168.0.1. It is also assumed that the wireless device being used is wlan0.
+hostapd - This is the package that allows you to use the built in WiFi as an access point
+dnsmasq - This is a combined DHCP and DNS server that's very easy to configure
+If you want something a little more 'heavyweight', you can use the isc-dhcp-server and bind9 packages for DHCP and DNS respectively, but for our purposes, dnsmasq works just fine.
 
-To configure the static IP address, edit the dhcpcd configuration file with:
-```
-sudo nano /etc/dhcpcd.conf
-```
-Go to the end of the file and edit it so that it looks like the following:
-```
-interface wlan0
-    static ip_address=192.168.4.1/24
-```
-Now restart the dhcpcd daemon and set up the new `wlan0` configuration:
-```
-sudo service dhcpcd restart
-```
+CONFIGURE YOUR INTERFACES
+The first thing you'll need to do is to configure your wlan0 interface with a static IP.
 
-Configuring the DHCP server (dnsmasq)
+If you're connected to the Pi via WiFi, connect via ethernet/serial/keyboard first.
 
-The DHCP service is provided by dnsmasq. By default, the configuration file contains a lot of information that is not needed, and it is easier to start from scratch. Rename this configuration file, and edit a new one:
-```
-sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
-sudo nano /etc/dnsmasq.conf
-```
-Type or copy the following information into the dnsmasq configuration file and save it:
-```
-interface=wlan0      # Use the require wireless interface - usually wlan0
-  dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
-```
-So for wlan0, we are going to provide IP addresses between 192.168.4.2 and 192.168.4.20, with a lease time of 24 hours. If you are providing DHCP services for other network devices (e.g. eth0), you could add more sections with the appropriate interface header, with the range of addresses you intend to provide to that interface.
+In newer Raspian versions, interface configuration is handled by dhcpcd by default. We need to tell it to ignore wlan0, as we will be configuring it with a static IP address elsewhere. So open up the dhcpcd configuration file with sudo nano /etc/dhcpcd.conf and add the following line to the bottom of the file:
 
-There are many more options for dnsmasq; see the dnsmasq documentation for more details.
+denyinterfaces wlan0  
+Note: This must be ABOVE any interface lines you may have added!
 
-Configuring the access point host software (hostapd)
+Now we need to configure our static IP. To do this open up the interface configuration file with sudo nano /etc/network/interfaces and edit the wlan0 section so that it looks like this:
 
-You need to edit the hostapd configuration file, located at /etc/hostapd/hostapd.conf, to add the various parameters for your wireless network. After initial install, this will be a new/empty file.
-```
-sudo nano /etc/hostapd/hostapd.conf
-```
-Add the information below to the configuration file. This configuration assumes we are using channel 7, with a network name of NameOfNetwork, and a password AardvarkBadgerHedgehog. Note that the name and password should not have quotes around them.
-```
+allow-hotplug wlan0  
+iface wlan0 inet static  
+    address 172.24.1.1
+    netmask 255.255.255.0
+    network 172.24.1.0
+    broadcast 172.24.1.255
+#    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+Restart dhcpcd with sudo service dhcpcd restart and then reload the configuration for wlan0 with sudo ifdown wlan0; sudo ifup wlan0.
+
+CONFIGURE HOSTAPD
+Next, we need to configure hostapd. Create a new configuration file with sudo nano /etc/hostapd/hostapd.conf with the following contents:
+
+# This is the name of the WiFi interface we configured above
 interface=wlan0
-driver=nl80211
-ssid=NameOfNetwork
-hw_mode=g
-channel=7
-wmm_enabled=0
-macaddr_acl=0
-auth_algs=1
-ignore_broadcast_ssid=0
-wpa=2
-wpa_passphrase=AardvarkBadgerHedgehog
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-```
-We now need to tell the system where to find this configuration file.
-```
-sudo nano /etc/default/hostapd
-```
-Find the line with #DAEMON_CONF, and replace it with this:
-```
-DAEMON_CONF="/etc/hostapd/hostapd.conf"
-```
-Start it up
 
-Now start up the remaining services:
-```
+# Use the nl80211 driver with the brcmfmac driver
+driver=nl80211
+
+# This is the name of the network
+ssid=Pi3-AP
+
+# Use the 2.4GHz band
+hw_mode=g
+
+# Use channel 6
+channel=6
+
+# Enable 802.11n
+ieee80211n=1
+
+# Enable WMM
+wmm_enabled=1
+
+# Enable 40MHz channels with 20ns guard interval
+ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40]
+
+# Accept all MAC addresses
+macaddr_acl=0
+
+# Use WPA authentication
+auth_algs=1
+
+# Require clients to know the network name
+ignore_broadcast_ssid=0
+
+# Use WPA2
+wpa=2
+
+# Use a pre-shared key
+wpa_key_mgmt=WPA-PSK
+
+# The network passphrase
+wpa_passphrase=raspberry
+
+# Use AES, instead of TKIP
+rsn_pairwise=CCMP
+We can check if it's working at this stage by running sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf. If it's all gone well thus far, you should be able to see to the network Pi3-AP! If you try connecting to it, you will see some output from the Pi, but you won't receive and IP address until we set up dnsmasq in the next step. Use Ctrl+C to stop it.
+
+We aren't quite done yet, because we also need to tell hostapd where to look for the config file when it starts up on boot. Open up the default configuration file with sudo nano /etc/default/hostapd and find the line #DAEMON_CONF="" and replace it with DAEMON_CONF="/etc/hostapd/hostapd.conf".
+
+CONFIGURE DNSMASQ
+The shipped dnsmasq config file contains a wealth of information on how to use it, but the majority of it is largely redundant for our purposes. I'd advise moving it (rather than deleting it), and creating a new one with
+
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
+sudo nano /etc/dnsmasq.conf  
+Paste the following into the new file:
+
+interface=wlan0      # Use interface wlan0  
+listen-address=172.24.1.1 # Explicitly specify the address to listen on  
+bind-interfaces      # Bind to the interface to make sure we aren't sending things elsewhere  
+server=8.8.8.8       # Forward DNS requests to Google DNS  
+domain-needed        # Don't forward short names  
+bogus-priv           # Never forward addresses in the non-routed address spaces.  
+dhcp-range=172.24.1.50,172.24.1.150,12h # Assign IP addresses between 172.24.1.50 and 172.24.1.150 with a 12 hour lease time  
+SET UP IPV4 FORWARDING
+One of the last things that we need to do before we send traffic anywhere is to enable packet forwarding.
+
+To do this, open up the sysctl.conf file with sudo nano /etc/sysctl.conf, and remove the # from the beginning of the line containing net.ipv4.ip_forward=1. This will enable it on the next reboot, but because we are impatient, activate it immediately with : 
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+We also need to share our Pi's internet connection to our devices connected over WiFi by the configuring a NAT between our wlan0 interface and our eth0 interface. We can do this using the following commands:
+
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT  
+sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT  
+However, we need these rules to be applied every time we reboot the Pi, so run sudo sh -c "iptables-save > /etc/iptables.ipv4.nat" to save the rules to the file /etc/iptables.ipv4.nat. Now we need to run this after each reboot, so open the rc.local file with sudo nano /etc/rc.local and just above the line exit 0, add the following line:
+
+iptables-restore < /etc/iptables.ipv4.nat  
+WE'RE ALMOST THERE!
+Now we just need to start our services:
+
 sudo service hostapd start  
 sudo service dnsmasq start  
-```
+And that's it! You should now be able to connect to the internet through your Pi, via the on-board WiFi!
 
-Configure dnsmasq and hostapd to start on boot:
-```
-update-rc.d dnsmasq defaults
-update-rc.d hostapd defaults
-```
+To double check we have got everything configured correctly, reboot with sudo reboot.
+
+
 
 
 

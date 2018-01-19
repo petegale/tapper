@@ -134,7 +134,7 @@ app.get('/view', function (req, res) {
 //Some utility functions
 
 function tap(data) {
-  console.log(data);
+  //console.log(data);
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
@@ -146,7 +146,7 @@ function tap(data) {
       io.sockets.emit("tap","active");
     }
   } else {
-    console.log("not recording"); 
+    //console.log("not recording"); 
   }
 }
 function getTime(delim) {
