@@ -18,7 +18,7 @@ global.config=config;
 var data = {};
 data = config;
 data.foo="bar";
-var path = "/home/pi/data";
+var path = "/home/pi/data/";
 
 //new objects and events to handle tapping
 const TapWatcher = require('./lib/TapWatcher.js');
@@ -95,7 +95,7 @@ app.get('/', function (req, res) {
   if (action=="delete") {
     var delitems = fs.readdirSync(path)
     try {
-      fs.unlinkSync(path+"/"+delitems[data.fileid]);
+      fs.unlinkSync(path+delitems[data.fileid]);
       console.log("item deleted");
     } catch (er) {
       console.log(er);
@@ -106,7 +106,7 @@ app.get('/', function (req, res) {
   fs.readdir(path, function(err, items) {
     if (items) {
       for (var i=0; i<items.length; i++) {
-          file=JSON.parse(fs.readFileSync(path+"/"+items[i], 'utf8'));
+          file=JSON.parse(fs.readFileSync(path+items[i], 'utf8'));
           file_titles[i]=file.name;
       }
       data.hasfiles=true;
@@ -122,7 +122,7 @@ app.get('/view', function (req, res) {
   data.fileid = req.query.id;
   var file;
   fs.readdir(path, function(err, items) {
-    file=JSON.parse(fs.readFileSync(path+"/"+items[data.fileid], 'utf8'));
+    file=JSON.parse(fs.readFileSync(path+items[data.fileid], 'utf8'));
     data.file=file;
     res.render('view',data);
   });
