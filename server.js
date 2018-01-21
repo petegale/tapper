@@ -18,7 +18,7 @@ global.config=config;
 var data = {};
 data = config;
 data.foo="bar";
-var path = "/data";
+var path = "/home/pi/data";
 
 //new objects and events to handle tapping
 const TapWatcher = require('./lib/TapWatcher.js');
@@ -72,7 +72,7 @@ io.on('connection', function(socket){
     global.RecObj.RecStatus = false;
     global.led.value(true);
     //store the object persistently
-    var fpath="/data/"+getDateTime("")+".json";
+    var fpath=path+getDateTime("")+".json";
     fs.writeFile(fpath, JSON.stringify(global.RecObj), (err) => {
         if (err) {
             console.error(err);

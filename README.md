@@ -6,7 +6,7 @@ Tapper is used for counting switch tapping frequency for measuring cognitive loa
 Tapper ~~uses Resin.io and their wifi-connect module, and~~ handles all the serving of pages and timing of stuff in Node. There's instructions to configure a PiZeroW as an access point below. This makes it easy to connect to the UI when using it.
 
 Usage:
-Turn on the Rpi - if it has wifi crednetials, it will connect automatically, if not, it will create an access point (TapperAP) to allow you to connect and configure wifi.
+Turn on the Rpi, it will create an access point (TapperAP). Connect to this (pwd: tapperaccess). Try some random URLs, the access point should intercept your requests and bring up the control interface.
 
 Once connected - open a browser on the IP address of Tapper to manage file recording and viewing.
 
