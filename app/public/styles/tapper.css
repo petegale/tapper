@@ -130,6 +130,9 @@ button[disabled]{
   width:33%;
   float:left;
   text-align:center;
+  color:#333333;
+  font-weight:200;
+  font-size:0.75em;
 }
 .vu {
   height:100%;
