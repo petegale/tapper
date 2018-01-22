@@ -21,10 +21,15 @@
   <input type="text" name="name" id="name"><br>
   <label for="desc">Description</label>
   <input type="text" name="desc" id="desc"><br>
-    <button id=start>Start recording</create>
-    <button id=stop>Stop recording</create>
+  <div class="vu-shell">
+    <div class="vu" id="vu">  </div>
+  </div>
+    <button id=start>Start recording</button>
+    <button id=stop>Stop recording</button>
       <%if (test) {%>
-       <button id=test>test</create>
+       <button id=test>test</button>
+
          <% } %>
+
 
 <% include partials/foot %>

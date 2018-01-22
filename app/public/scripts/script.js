@@ -2,8 +2,10 @@ var socket = io();
 
   var flip=true;
 
-function tap() {
+function tap(data) {
   var x = document.getElementById('recording');
+  var w = data/2000 * 100;
+  setwidth(w);
   if (flip==true) {
       x.style.backgroundColor = '#f9f9f9';
       flip=false;
@@ -12,9 +14,17 @@ function tap() {
       flip=true;
   }
 }
+function setwidth(val) {
+  var vu = document.getElementById('vu');
+  console.log(parseInt(vu.style.width));
+  if ( vu>100 ) {
+    vu=100;
+  }
+  vu.style.width = val + "%";
+}
 
 socket.on('tap', function(data) {
-  tap();
+  tap(data);
 });
 
 window.addEventListener("load", function(){
@@ -29,6 +39,7 @@ window.addEventListener("load", function(){
   var createpanel = document.getElementById('createpanel');
   if (createpanel) {createpanel.style.display = 'none';}
   var testButton = document.getElementById('test');
+  
   if (testButton) {
     testButton.addEventListener('click', function() {
       socket.emit("tap","tap");

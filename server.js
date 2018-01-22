@@ -20,24 +20,24 @@ data = config;
 data.foo="bar";
 var path = "/home/pi/data/";
 
-//new objects and events to handle tapping
-const TapWatcher = require('./lib/TapWatcher.js');
-// create a new instance of our PubSub class
-const watcher = new TapWatcher(config.tap_source,config.accel_threshold);
-// listen for any events
-watcher.on('tap', function (data) {
-  //console.log('1_tap!'+data)
-  tap(data)
-})
-
 //test and configure for where it's running
 var www_port=config.dev_port;
 var isPi = require('detect-rpi');
 if (isPi()) {
   //setup specific to rPi
-  www_port = config.prod_port;  
+  www_port = config.prod_port;
+  //new objects and events to handle tapping
+  const TapWatcher = require('./lib/TapWatcher.js');
+  // create a new instance of our PubSub class
+  const watcher = new TapWatcher(config.tap_source,config.accel_threshold);
+  // listen for any events
+  watcher.on('tap', function (data) {
+    //console.log('1_tap!'+data)
+    tap(data)
+  })
 } else {
   //setup test variables for running on laptop
+  data.test=true
 }
 
 //start a server  and log its start to our console
@@ -82,7 +82,7 @@ io.on('connection', function(socket){
     });
   });
   
-  socket.on('test', function(data){
+  socket.on('tap', function(data){
     tap();
   });  
   
@@ -133,8 +133,7 @@ app.get('/view', function (req, res) {
 
 //Some utility functions
 
-function tap(data) {
-  //console.log(data);
+function tap() {
   if (global.RecObj.RecStatus) {
     var now = new Date().getTime();
     var diff = now - global.RecObj.lastclick;
@@ -143,7 +142,7 @@ function tap(data) {
       global.RecObj.data.push(diff);
       //global.RecObj.data.push(data);
       global.RecObj.time.push(getTime(":"));
-      io.sockets.emit("tap","active");
+      io.sockets.emit("tap",diff);
     }
   } else {
     //console.log("not recording"); 
