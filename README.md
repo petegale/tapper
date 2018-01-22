@@ -1,7 +1,8 @@
 Tapper
 ======
 
-Tapper is used for counting switch tapping frequency for measuring cognitive load in usability tests.
+Tapper is used for counting switch tapping frequency for measuring cognitive load in usability tests, it's based on the article by Tomer Sharon here: 
+https://medium.com/@tsharon/measuring-cognitive-load-with-a-tapping-test-f07065854e46
 
 Tapper ~~uses Resin.io and their wifi-connect module, and~~ handles all the serving of pages and timing of stuff in Node. There's instructions to configure a PiZeroW as an access point below. This makes it easy to connect to the UI when using it.
 
@@ -18,7 +19,7 @@ No docs yet :(
 Installing the software
 -----------------------
 
-This is installing from a base of Raspbian Stretch Lite.
+This is installing from a base of Raspbian Stretch Lite:
 
 First of all let's enable i2C and SPI
 
@@ -54,7 +55,7 @@ If that's working (not timing out), you can Ctrl-C to stop the ping.
 
 At this point it might be easier to log in via ssh (use ifconfig to find your ip, then ssh pi@[YOUR IP ADDRESS])
 
-Now we download a bash script from github gist, and execute it. The rest is automatic
+Now we download a bash script from github gist, and execute it. The rest is automatic:
 
 ```
 wget https://gist.githubusercontent.com/petegale/87fb0d81fc57f754c13c45c686ea11d1/raw/48043b8e86067f8db9a8ea2474d7d2e6624c52c1/tapperinstall.sh
