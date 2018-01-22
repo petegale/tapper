@@ -4,7 +4,7 @@ var socket = io();
 
 function tap(data) {
   var x = document.getElementById('recording');
-  var w = data/2000 * 100;
+  var w = data<2000 ? (data/2000 * 100) : 100;
   setwidth(w);
   if (flip==true) {
       x.style.backgroundColor = '#f9f9f9';
@@ -15,11 +15,8 @@ function tap(data) {
   }
 }
 function setwidth(val) {
-  var vu = document.getElementById('vu');
-  console.log(parseInt(vu.style.width));
-  if ( vu>100 ) {
-    vu=100;
-  }
+  console.log(val);
+  var vu = document.getElementById('vu');;
   vu.style.width = val + "%";
 }
 
