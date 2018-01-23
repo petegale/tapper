@@ -116,33 +116,44 @@ button[disabled]{
   background-color: #ffffff;
 }
 .vu-shell {
+  clear:both;
   width:100%;
   height:20px;
-  border: 1px solid grey;
+  border: 1px solid #cccccc;
   margin: 0px 0px 15px 2px;
 }
 .vu-calibration {
   width:100%;
-  height:20px;
   margin: 0px 0px 0px 2px;
-}
-.vutime {
-  width:33%;
-  float:left;
-  text-align:center;
   color:#333333;
   font-weight:200;
   font-size:0.75em;
 }
+.vu-calibration .left {
+  width:27%;
+  float:left;
+  text-align:right;
+}
+.vu-calibration .center {
+  text-align:center;
+  float:left;
+  width:47%;
+}
+.vu-calibration .right {
+  text-align:left;
+  width:24%;
+  float:left;
+}
+
 .vu {
   height:100%;
   width:50%;
   transition:width 0.5s ease-in-out;
   background: repeating-linear-gradient(
   to right,
-  #ffffff,
-  #ffffff 2px,
-  #cccccc 2px,
+  #f9f9f9,
+  #f9f9f9 3px,
+  #cccccc 1px,
   #cccccc 4px
 );
 
