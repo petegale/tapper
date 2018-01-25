@@ -19,7 +19,16 @@ No docs yet :(
 Installing the software
 -----------------------
 
-This is installing from a base of Raspbian Stretch Lite:
+Install the Raspbian OS (this was tested with Raspbian Stretch Light) onto an SD card:
+
+https://www.raspberrypi.org/documentation/installation/installing-images/
+
+Before you put the SD card into the Pi, download the installation script (zip) from here:
+https://gist.github.com/petegale/87fb0d81fc57f754c13c45c686ea11d1
+Unzip it and place the tapperinstall.sh file into the boot partition on the SD card.
+
+Put the SD card into the Pi, with a keyboard and monitor connected, log in (user:pi pass:raspberry)
+
 
 First of all let's enable i2C and SPI
 
@@ -27,40 +36,14 @@ First of all let's enable i2C and SPI
 sudo raspi-config
 ```
 Got to the interfaces option, then enable i2c and SPI
-Now let's provide details of the wireless network we're using during setup:
-```
-sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-```
+Now let's provide details of the wireless network we're using during setup
 
-Add the following to this file:
-```
-network={
-    ssid="testing"
-    psk="testingPassword"
-}
-```
-Save and exit (Ctrl-X then Y then Enter)
-
-Strongly recomend that you change the default password at this point, by typing passwd
-
-Now reboot:
-```
-sudo reboot
-```
-Now check you're online with:
-```
-ping www.google.com
-```
-If that's working (not timing out), you can Ctrl-C to stop the ping.
-
-At this point it might be easier to log in via ssh (use ifconfig to find your ip, then ssh pi@[YOUR IP ADDRESS])
-
-Now we download a bash script from github gist, and execute it. The rest is automatic:
+Now execute the install script, providing it with your wifi details, to allow the pi to download everything it needs. The rest is automatic:
 
 ```
-wget https://gist.githubusercontent.com/petegale/87fb0d81fc57f754c13c45c686ea11d1/raw/48043b8e86067f8db9a8ea2474d7d2e6624c52c1/tapperinstall.sh
+cd /boot
 sudo chmod -x tapperinstall.sh
-sudo ./tapperinstall.sh
+sudo ./tapperinstall.sh wifiPassword wifiSSID
 ```
 
 That should have done everything, just need to reboot
