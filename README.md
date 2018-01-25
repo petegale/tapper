@@ -29,15 +29,6 @@ Unzip it and place the tapperinstall.sh file into the boot partition on the SD c
 
 Put the SD card into the Pi, with a keyboard and monitor connected, log in (user:pi pass:raspberry)
 
-
-First of all let's enable i2C and SPI
-
-```
-sudo raspi-config
-```
-Got to the interfaces option, then enable i2c and SPI
-Now let's provide details of the wireless network we're using during setup
-
 Now execute the install script, providing it with your wifi details, to allow the pi to download everything it needs. The rest is automatic:
 
 ```
