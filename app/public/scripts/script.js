@@ -48,11 +48,15 @@ window.addEventListener("load", function(){
       var RecObj = {};
       RecObj.name = document.getElementById('name').value;
       RecObj.desc = document.getElementById('desc').value;
+      if (RecObj.name=="") {
+        alert ("Please name your recording, and try again")
+      } else {
+        socket.emit("start",RecObj);
+        startButton.disabled = true;
+        stopButton.disabled = false;
+        document.getElementById('recording').style.display = 'block';
+      }
       //socket.emit("command",{variable,variable});
-      socket.emit("start",RecObj);
-      startButton.disabled = true;
-      stopButton.disabled = false;
-      document.getElementById('recording').style.display = 'block';
     });
   }
   
