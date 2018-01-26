@@ -106,8 +106,14 @@ app.get('/', function (req, res) {
   fs.readdir(path, function(err, items) {
     if (items) {
       for (var i=0; i<items.length; i++) {
+        try {
           file=JSON.parse(fs.readFileSync(path+items[i], 'utf8'));
           file_titles[i]=file.name;
+        } catch (er) {
+          console.log(er);
+          //there's an empty file. This happens. delete it
+          fs.unlinkSync(path+items[i]);
+        }
       }
       data.hasfiles=true;
     } else {
